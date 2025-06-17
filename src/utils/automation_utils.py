@@ -36,6 +36,6 @@ class NotepadBot(DesktopBot):
         time.sleep(1)
 
     def close_notepad(self):
-        """Close Notepad using BotCity's alt_f4"""
-        self.alt_f4()
+        """Close Notepad using BotCity's control + W"""
+        self.control_w()
         time.sleep(1)
