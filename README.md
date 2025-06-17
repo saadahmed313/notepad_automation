@@ -108,15 +108,43 @@ The script implements robust error handling for:
 - **Error Logging**: Errors are logged to the console; consider adding file-based logging for persistent debugging.
 - **Sequential Processing**: Processes posts one at a time to avoid focus issues with multiple Notepad instances.
 
-## Limitations
-- **Windows-Only**: Relies on Notepad and `pywin32` for focus management.
-- **Automation Sensitivity**: May fail if:
-  - Screen resolution or UI scaling changes.
-  - Other applications steal focus.
-  - System lag disrupts timing.
-- **Dialog Handling**: Lacks explicit handling for overwrite or unsaved changes dialogs, which may cause save/close failures.
-- **Network Dependency**: Requires internet for API requests.
-- **Performance**: Sequential processing is slower than concurrent but more reliable.
+## ⚠️ Limitations of the Automation Script
+
+1. **🪟 Windows-Only**  
+   - The script relies on `notepad.exe` and Windows-specific keyboard shortcuts.  
+   - It won't work on macOS or Linux without significant modifications.
+
+2. **🖱️ PyAutoGUI Sensitivity**  
+   The script's reliability depends heavily on the desktop environment. It may fail if:
+   - Screen resolution or UI scaling settings change.
+   - Another application steals focus during automation.
+   - System lag causes delays to be inaccurate or missed.
+
+3. **🧾 Dialog Handling Issues**  
+   - There is no logic to handle Notepad dialogs like:
+     - "Do you want to save changes?"
+     - "File already exists. Overwrite?"
+   - These dialogs may interrupt automation and lead to failed saves or unsaved files.
+
+4. **🌐 Network Dependency**  
+   - API requests depend on an active internet connection.
+   - Any connectivity issue will result in failed fetches and skipped posts.
+
+5. **⏱️ Sequential Processing**  
+   - Each post is handled one-by-one.
+   - Due to Notepad’s single-instance behavior, the process is slow and does not use concurrency.
+
+6. **⚙️ Hardcoded Configuration**  
+   Key parameters are fixed inside the script:
+   - `SAVE_DIR`
+   - `NUM_POSTS`
+   - `API_URL`  
+   
+   🔧 **Better alternatives**:
+   - Use **command-line arguments** with `argparse`.
+   - Or read from **environment variables** using `os.environ`.
+
+
 
 ## Development
 To contribute:
